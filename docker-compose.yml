@@ -1,0 +1,22 @@
+version: "3.5"
+services:
+  hapi:
+    container_name: hapiserver
+    restart: always
+    build: ./nodejs-backend-container
+    ports:
+      - "3335:3335"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  nginx:
+    container_name: nginx
+    build: ./nginx-backend-container
+    ports:
+      - "80:80"
